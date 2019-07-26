@@ -64,14 +64,15 @@ class WelcomeController < ApplicationController
       device_info[kv[0]] = kv[1]
     end
 
+    # logger.debug("udid:#{device_info['UDID']}, name:#{device_info['UDID']}, poralid:#{request.params[:portalid]}")
     Spaceship.login('anhui3713@vip.qq.com', 'Admin123$%^')
-    Spaceship.device.create!(name: device_info[:IMEI], udid: device_info[:UDID])
+    Spaceship.device.create!(name: device_info['IMEI'], udid: device_info['UDID'])
 
     # Spaceship.device.all
     # logger.debug(device_info)
 
     response.headers["status"] = 301
-    redirect_to "http://192.168.0.7:3000/welcome/result?udid=#{device_info[:IMEI]}&portalid=#{request.params[:protalid]}"
+    redirect_to "http://192.168.0.7:3000/welcome/result?udid=#{device_info['UDID']}&portalid=#{request.params[:portalid]}"
     # render plain: 'success'
     # https://down.liuduapp.com/ios/agyy-jc-0.1.9.ipa
     # redirect_to "https://down.liuduapp.com/ios/agyy-jc-0.1.9.ipa"
