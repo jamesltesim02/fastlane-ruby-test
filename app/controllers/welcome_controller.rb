@@ -1,13 +1,7 @@
 require "spaceship"
 
-# require_relative "../../config/system.config"
-
-# require File.expand_path('../../../config/system.config', __FILE__)
-
-# config = Configs.defaultValue
-
 @@config1 = {
-  "server" => "http://192.168.12.159:3000/"
+  "server" => "https://www.maganda.space/"
 }
 
 class WelcomeController < ApplicationController
@@ -21,7 +15,6 @@ class WelcomeController < ApplicationController
   def udid
     logger.debug('in udid')
     logger.debug(request)
-    # response.headers["Content-Type"] = "application/xml; charset=UTF-8"
     response.headers["Content-Type"] = "application/x-apple-aspen-config; charset=UTF-8"
     render plain: <<~mobileconfig
       <?xml version="1.0" encoding="UTF-8"?>
@@ -42,7 +35,7 @@ class WelcomeController < ApplicationController
             </array>
             </dict>
             <key>PayloadOrganization</key>
-            <string>192.168.0.3:3000</string>
+            <string>#{@@config1['server']}</string>
             <key>PayloadDisplayName</key>
             <string>查询设备UDID</string>
             <key>PayloadVersion</key>
@@ -78,14 +71,8 @@ class WelcomeController < ApplicationController
     Spaceship.login('anhui3713@vip.qq.com', 'Admin123$%^')
     Spaceship.device.create!(name: device_info['UDID'], udid: device_info['UDID'])
 
-    # Spaceship.device.all
-    # logger.debug(device_info)
-
     response.headers["status"] = 301
     redirect_to "#{@@config1['server']}welcome/result?udid=#{device_info['UDID']}&portalid=#{request.params[:portalid]}"
-    # render plain: 'success'
-    # https://down.liuduapp.com/ios/agyy-jc-0.1.9.ipa
-    # redirect_to "https://down.liuduapp.com/ios/agyy-jc-0.1.9.ipa"
   end
 
   def result
