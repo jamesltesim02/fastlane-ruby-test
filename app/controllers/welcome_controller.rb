@@ -7,7 +7,7 @@ require "spaceship"
 # config = Configs.defaultValue
 
 @@config1 = {
-  "server" => "http://192.168.12.159:3000/"
+  "server" => "https://www.maganda.space/"
 }
 
 class WelcomeController < ApplicationController
