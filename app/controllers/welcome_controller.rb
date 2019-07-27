@@ -1,11 +1,21 @@
 require "spaceship"
 
+# require_relative "../../config/system.config"
+
+# require File.expand_path('../../../config/system.config', __FILE__)
+
+# config = Configs.defaultValue
+
+@@config1 = {
+  "server" => "http://192.168.12.159:3000/"
+}
+
 class WelcomeController < ApplicationController
   protect_from_forgery :except => :index
   skip_before_action :verify_authenticity_token
   def index
     logger.debug('in index')
-    render plain: 'plain text'
+    render plain: "plain text#{@@config1['server']}"
   end
 
   def udid
@@ -21,7 +31,7 @@ class WelcomeController < ApplicationController
             <key>PayloadContent</key>
             <dict>
             <key>URL</key>
-            <string>http://192.168.0.7:3000/welcome/receive?portalid=#{request.params[:portalid]}</string>
+            <string>#{@@config1['server']}welcome/receive?portalid=#{request.params[:portalid]}</string>
             <key>DeviceAttributes</key>
             <array>
               <string>UDID</string>
@@ -64,15 +74,15 @@ class WelcomeController < ApplicationController
       device_info[kv[0]] = kv[1]
     end
 
-    # logger.debug("udid:#{device_info['UDID']}, name:#{device_info['UDID']}, poralid:#{request.params[:portalid]}")
+    logger.debug("udid:#{device_info['UDID']}, name:#{device_info['UDID']}, poralid:#{request.params[:portalid]}")
     Spaceship.login('anhui3713@vip.qq.com', 'Admin123$%^')
-    Spaceship.device.create!(name: device_info['IMEI'], udid: device_info['UDID'])
+    Spaceship.device.create!(name: device_info['UDID'], udid: device_info['UDID'])
 
     # Spaceship.device.all
     # logger.debug(device_info)
 
     response.headers["status"] = 301
-    redirect_to "http://192.168.0.7:3000/welcome/result?udid=#{device_info['UDID']}&portalid=#{request.params[:portalid]}"
+    redirect_to "#{@@config1['server']}welcome/result?udid=#{device_info['UDID']}&portalid=#{request.params[:portalid]}"
     # render plain: 'success'
     # https://down.liuduapp.com/ios/agyy-jc-0.1.9.ipa
     # redirect_to "https://down.liuduapp.com/ios/agyy-jc-0.1.9.ipa"
