@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'welcome/index'
+  get 'welcome/mview'
   get 'welcome/receive'
   get 'welcome/result'
   get 'welcome/:config', to: 'welcome#udid'

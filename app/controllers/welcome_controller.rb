@@ -12,6 +12,10 @@ class WelcomeController < ApplicationController
     render plain: "plain text#{@@config1['server']}"
   end
 
+  def mview
+    redirect_to "http://192.168.0.7:3000/welcome/index", :status => 301 
+  end
+
   def udid
     logger.debug('in udid')
     logger.debug(request)
@@ -71,8 +75,9 @@ class WelcomeController < ApplicationController
     Spaceship.login('anhui3713@vip.qq.com', 'Admin123$%^')
     Spaceship.device.create!(name: device_info['UDID'], udid: device_info['UDID'])
 
-    response.headers["status"] = 301
-    redirect_to "#{@@config1['server']}welcome/result?udid=#{device_info['UDID']}&portalid=#{request.params[:portalid]}"
+    # response.headers["status"] = 301
+    to_url = "#{@@config1['server']}welcome/result?udid=#{device_info['UDID']}&portalid=#{request.params[:portalid]}"
+    redirect_to to_url, :status => 301 
   end
 
   def result
