@@ -77,10 +77,10 @@ class WelcomeController < ApplicationController
 
   def result
     logger.debug('in result')
-    logger.debug(request)
+    logger.debug(request.params)
     response.headers["status"] = 200
     response.headers["Content-Type"] = "text/html; charset=UTF-8"
-    logger.debug("success register, your udid is:#{request.params[:udid]}, and your portalid is:#{request.params[:protalid]}")
-    render plain: "success register, your udid is:#{request.params[:udid]}, and your portalid is:#{request.params[:protalid]}"
+    logger.debug("success register, your udid is:#{request.params[:udid]}, and your portalid is:#{request.params[:portalid]}")
+    render plain: "success register, your udid is:#{request.params[:udid]}, and your portalid is:#{request.params[:portalid]}"
   end
 end
