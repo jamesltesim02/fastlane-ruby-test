@@ -98,7 +98,7 @@ class WelcomeController < ApplicationController
           <h5>UDID: #{request.params[:udid]}</h5>
           <h5>portalid: #{request.params[:portalid]}</h5>
           <p>
-            <a href="itms-services://?action=download-manifest&url=https://www.maganda.space/assets/ios-apps/ios-sign-1.0.1/testsign.plist">点击安装APP</a>
+            <a href="itms-services://?action=download-manifest&url=https://www.maganda.space/ios-apps/ios-sign-1.0.1/testsign.plist">点击安装APP</a>
           </p>
         </body>
       </html>
