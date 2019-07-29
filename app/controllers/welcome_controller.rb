@@ -86,6 +86,22 @@ class WelcomeController < ApplicationController
     response.headers["status"] = 200
     response.headers["Content-Type"] = "text/html; charset=UTF-8"
     logger.debug("success register, your udid is:#{request.params[:udid]}, and your portalid is:#{request.params[:portalid]}")
-    render plain: "success register, your udid is:#{request.params[:udid]}, and your portalid is:#{request.params[:portalid]}"
-  end
+
+    render plain: <<~resultbody
+      <html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+          <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        </head>
+        <body>
+          <h3>下载APP</h3>
+          <h5>UDID: #{request.params[:udid]}</h5>
+          <h5>portalid: #{request.params[:portalid]}</h5>
+          <p>
+            <a href="itms-services://?action=download-manifest&url=https://www.maganda.space/assets/ios-apps/ios-sign-1.0.1/testsign.plist">点击安装APP</a>
+          </p>
+        </body>
+      </html>
+    resultbody
+   end
 end
