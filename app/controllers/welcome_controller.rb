@@ -131,6 +131,8 @@ class WelcomeController < ApplicationController
       name: "adhoc #{app.bundle_id}"
     )
 
+    File.write("/home/hank/fastlane-ruby-test/public/buildspace/profiles/adhoc_#{app.bundle_id}.mobileprovision", profile.download)
+
     response.headers["status"] = 200  
     render plain: <<~appidresult
       app: #{app}
