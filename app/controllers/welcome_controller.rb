@@ -134,7 +134,7 @@ class WelcomeController < ApplicationController
     response.headers["status"] = 200  
     render plain: <<~appidresult
       app: #{app}
-      
+
       certs: #{certs}
 
       first cert: #{firstCert}
