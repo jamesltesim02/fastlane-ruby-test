@@ -104,4 +104,43 @@ class WelcomeController < ApplicationController
       </html>
     resultbody
    end
+
+   def appid
+    logger.debug('create appid')
+
+    # 登录
+    Spaceship.login('anhui3713@vip.qq.com', 'Admin123$%^')
+
+    # 创建APP id
+    # randomid = rand(1000000000..9999999999)
+    # app = Spaceship.app.create!(bundle_id: "com.iossign.#{randomid}", name: "Portal-#{randomid}")
+    # logger.debug("app: #{app}")
+
+    app = Spaceship::Portal.app.find("com.iossign.2978722036")
+
+    # 获取开发证书
+    certs = Spaceship::Portal.certificate.production.all
+    logger.debug("certs: #{certs}")
+
+    firstCert = certs.first
+    logger.debug("first cert: #{firstCert}")
+
+    profile = Spaceship::Portal.provisioning_profile.ad_hoc.create!(
+      bundle_id: app.bundle_id,
+      certificate: firstCert,
+      name: "adhoc #{app.bundle_id}"
+    )
+
+    response.headers["status"] = 200  
+    render plain: <<~appidresult
+      app: #{app}
+      
+      certs: #{certs}
+
+      first cert: #{firstCert}
+
+      profile name: #{profile.name}
+      profile: #{profile}
+    appidresult
+   end
 end
