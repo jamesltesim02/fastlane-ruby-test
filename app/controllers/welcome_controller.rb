@@ -103,9 +103,9 @@ class WelcomeController < ApplicationController
         </body>
       </html>
     resultbody
-   end
+  end
 
-   def appid
+  def appid
     logger.debug('create appid')
 
     # 登录
@@ -134,7 +134,7 @@ class WelcomeController < ApplicationController
     response.headers["status"] = 200  
     render plain: <<~appidresult
       app: #{app}
-      
+
       certs: #{certs}
 
       first cert: #{firstCert}
@@ -142,5 +142,5 @@ class WelcomeController < ApplicationController
       profile name: #{profile.name}
       profile: #{profile}
     appidresult
-   end
+  end
 end
