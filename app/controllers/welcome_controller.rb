@@ -109,7 +109,7 @@ class WelcomeController < ApplicationController
     logger.debug('create appid')
 
     # 登录
-    Spaceship.login('anhui3713@vip.qq.com', 'Admin123$%^')
+    Spaceship::Portal.login('anhui3713@vip.qq.com', 'Admin123$%^')
 
     # 创建APP id
     # randomid = rand(1000000000..9999999999)
