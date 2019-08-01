@@ -103,5 +103,5 @@ class WelcomeController < ApplicationController
         </body>
       </html>
     resultbody
-   end
+  end
 end
